@@ -13,8 +13,16 @@ urlpatterns列表将URL路由到视图。有关更多信息，请参见：https:
 2. 将URL添加到urlpatterns：path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.http import HttpResponse
+from django.urls import path, include
+
+
+def home(res):
+    return HttpResponse("Home page.")
+
 
 urlpatterns = [
+    path("", home, name="home"),
+    path("my_app/", include("my_app.urls")),
     path("admin/", admin.site.urls),
 ]

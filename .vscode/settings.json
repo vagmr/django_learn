@@ -1,0 +1,221 @@
+{
+    // 工作区主题
+    "workbench.colorTheme": "Solarized Dark",
+    // 工作区图标主题
+    "workbench.iconTheme": "material-icon-theme",
+    // 工作区产品图标主题
+    "workbench.productIconTheme": "Default",
+    "python.languageServer": "Pylance",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "[python]": {
+        // ms-python.autopep8: 使用 autopep8 设置对 Python 文件的格式支持
+        "editor.defaultFormatter": "ms-python.autopep8",
+        // 控制是否淡化未使用的代码
+        "editor.showUnused": true,
+    },
+    // 修改注释颜色
+    "editor.tokenColorCustomizations": {
+        "comments": {
+            "fontStyle": "bold",
+            "foreground": "#18e093"
+        }
+    },
+    "markdown.validate.unusedLinkDefinitions.enabled": "warning",
+    "powermode.enabled": true, //启动效果
+    "powermode.presets": "exploding-rift",
+    "powermode.shake.intensity": 1,
+    "powermode.combo.counterEnabled": "show",
+    "powermode.combo.location": "editor",
+    "python.analysis.typeCheckingMode": "basic",
+    // 当您在编辑器中输入代码时，此选项将自动为您提供导入的代码建议。
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.diagnosticSeverityOverrides": {
+        // 设置了对于无效字符串转义序列的诊断级别为"none"，这意味着编辑器将不会报告此类问题。
+        "reportInvalidStringEscapeSequence": "none"
+    },
+    "terminal.integrated.env.windows": {
+        // 添加 PYTHONPATH 环境变量
+        "PYTHONPATH": "${workspaceFolder};${env:PYTHONPATH};"
+    },
+    "cSpell.words": [
+        "apikey",
+        "cadetblue",
+        "colorgram",
+        "columnspan",
+        "darkslateblue",
+        "deepskyblue",
+        "dodgerblue",
+        "dotenv",
+        "exitonclick",
+        "Finlish",
+        "genarr",
+        "hotpink",
+        "jsonify",
+        "lscore",
+        "padx",
+        "pady",
+        "pixela",
+        "pyperclip",
+        "replit",
+        "royalblue",
+        "rscore",
+        "TLAHVBXBTMHZDOQQ",
+        "vagmr",
+        "werkzeug"
+    ],
+    "terminal.integrated.env.osx": {
+        "PATH": ""
+    },
+    "python.defaultInterpreterPath": "‪D:\\python3.9.7\\python.exe",
+    // 解决相对路径的问题
+    "python.terminal.executeInFileDir": true,
+    "todo-tree.tree.showCountsInTree": true,
+    // flames 火花效果、  particles 粒子、 magic 魔法、 fireworks 烟花、 clippy 曲别针
+    // "powermode.enableShake": false, // 关闭代码抖动 「建议关闭，开启容易眼睛花」
+    /* --------------------------------------------------------------------------------------------- */
+    // todotree 设置
+    "todo-tree.general.tags": [
+        "TODO", //添加自定义的标签成员,将在下面实现它们的样式
+        "bug",
+        "Doing",
+        "tag",
+        "Done",
+        "mark",
+        "xxx",
+        "update",
+        "optional",
+        "--"
+    ],
+    "todo-tree.regex.regex": "((%|#|//|<!--|^\\s*\\*)\\s*($TAGS)|^\\s*- \\[ \\])",
+    "todo-tree.filtering.ignoreGitSubmodules": true,
+    "todo-tree.filtering.includeGlobs": [
+        "**/*.py",
+        "**/*.todo"
+    ],
+    "todo-tree.highlights.defaultHighlight": {
+        /* 图标祥见https://primer.style/foundations/icons直接使用图标名
+        或者https: //microsoft.github.io/vscode-codicons/dist/codicon.html
+        要使用"icon": "$(flame)"
+        */
+        "icon": "check-circle",
+        /* 
+        type- 用于控制编辑器中突出显示的量。有效值为：
+        tag- 仅突出显示标签
+        text- 突出显示标签和标签后的任何文本
+        tag-and-comment- 突出显示评论字符（或比赛的开始）和标签
+        tag-and-subTag- 如上所述，但也允许突出显示子标签（在自定义突出显示中定义颜色）
+        text-and-comment- 突出显示注释字符（或比赛的开始）、标签和标签后面的文本
+        line- 突出显示包含标签的整行
+        whole-line- 将包含标签的整行突出显示到编辑器的整个宽度
+        capture-groups:n,m...- 突出显示正则表达式中的捕获组，其中“n”是正则表达式的索引
+        none- 禁用文档中的突出显示
+        */
+        "type": "tag",
+        "foreground": "#Ffe838",
+        // "background": "#f13a3a",
+        "opacity": 50,
+        "iconColour": "#f13a3a",
+        "rulerColour": "yellow",
+        "fontStyle": "italic",
+        "fontWeight": "bold",
+        "borderRadius": "3px",
+        "gutterIcon": true
+    },
+    "todo-tree.highlights.customHighlight": {
+        //doing		进行中
+        "Doing": {
+            "icon": "code",
+            "iconColour": "#df5414",
+            "rulerColour": "#36D",
+            "fontStyle": "normal",
+            "gutterIcon": true,
+            "type": "line",
+            "foreground": "#f1356d",
+        },
+        //bug		必须要修复的BUG  
+        "bug": {
+            "background": "#eb5c5c",
+            "icon": "bug",
+            "rulerColour": "#eb5c5c",
+            "iconColour": "#eb5c5c",
+        },
+        //tag		标签
+        "tag": {
+            "background": "#38b2f4",
+            "icon": "tag",
+            "rulerColour": "#38b2f4",
+            "iconColour": "#38b2f4",
+            "rulerLane": "full"
+        },
+        //done		已完成
+        "Done": {
+            "background": "#ccc",
+            "foreground": "#fff",
+            "icon": "check-circle-fill",
+            "fontStyle": "normal",
+            "type": "tag-and-subTag",
+            "rulerColour": "#5eec95",
+            "iconColour": "#5eec95",
+        },
+        //--        分割线
+        "--": {
+            "foreground": "#61b3bc",
+            "fontStyle": "italic",
+            "type": "text",
+            "gutterIcon": true,
+            "rulerLane": "full",
+            "icon": "arrow-right",
+        },
+        //mark     	标记一下
+        "mark": {
+            "background": "#f90",
+            "icon": "note",
+            "rulerColour": "#f90",
+            "iconColour": "#f90",
+        },
+        //xxx		先暂时这么写
+        "xxx": {
+            "background": "#df7be6",
+            "icon": "flame",
+            "rulerColour": "#df7be6",
+            "iconColour": "#df7be6",
+        },
+        //update  	优化升级点
+        "update": {
+            "background": "#d65d8e",
+            "icon": "versions",
+            "rulerColour": "#d65d8e",
+            "iconColour": "#d65d8e",
+        },
+        // optional 	可选的
+        "optional": {
+            "background": "#106227",
+            "icon": "star-fill",
+            "foreground": "white",
+            "rulerColour": "#f90",
+            "iconColour": "#118adb",
+        }
+    },
+    "todo-tree.tree.scanMode": "open files",
+    "EnglishChineseDictionary.enableHover": true,
+    // 背单词的配置
+    "qwerty-learner.highlightWrongColor": "#f13a3a",
+    "qwerty-learner.highlightWrongDelay": 500,
+    // "qwerty-learner.keySound": true,
+    "qwerty-learner.phonetic": "us",
+    "qwerty-learner.chapterLength": 30,
+    "qwerty-learner.wordExerciseTime": 3,
+    "qwerty-learner.random": true,
+    "code-runner.executorMap": {
+        // 运行django项目
+        "python": "cd $dir && python manage.py runserver 3001",
+        // 以文件夹主目录为启动目录,python扩展带的运行是以当前文件夹为启动目录
+        "python_com": "python -u $fullFileName ",
+    },
+    "code-runner.customCommand": "python -u $fullFileName ",
+    "explorer.compactFolders": false,
+    "python.createEnvironment.contentButton": "show",
+    "djangointellisense.projectRoot": "${workspaceRoot}/vagmr_learn",
+    "djangointellisense.settingsModule": "vagmr_learn.settings",
+}

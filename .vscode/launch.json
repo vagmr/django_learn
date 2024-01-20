@@ -1,0 +1,71 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: 模块 --当前文件夹路径",
+            "type": "python",
+            "request": "launch",
+            "justMyCode": true,
+            // "module": "main",
+            // 模块名称，当前文件名不包含扩展名
+            "module": "${fileBasenameNoExtension}",
+            "env": {
+                "PYTHONPATH": "${fileDirname} "
+            }
+        },
+        {
+            "name": "Python: 模块 --工作区根目录",
+            "type": "python",
+            "request": "launch",
+            "justMyCode": true,
+            // "module": "main",
+            // 模块名称，当前文件名不包含扩展名
+            "module": "${fileBasenameNoExtension}",
+            "env": {
+                "PYTHONPATH": "${workspaceRoot}"
+            }
+        },
+        // 解决相对路径的问题,从当前文件开始
+        {
+            "name": "当前文件",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "justMyCode": true,
+            "cwd": "${fileDirname}"
+        },
+        // 新增的配置，用于设置和运行Flask应用程序
+        {
+            "name": "Flask",
+            "type": "python",
+            "request": "launch",
+            "module": "flask",
+            "env": {
+                "FLASK_APP": "${file}"
+            },
+            "args": [
+                "run"
+            ],
+            "jinja": true
+        },
+        //用于运行django项目
+        {
+            "name": "Django",
+            "type": "python",
+            "request": "launch",
+            "module": "manage",
+            "env": {
+                "PYTHONPATH": "${workspaceRoot}/vagmr_learn",
+                "DJANGO_SETTINGS_MODULE": "vagmr_learn.settings"
+            },
+            "args": [
+                "runserver",
+                "3001"
+            ],
+            "jinja": true
+        }
+    ]
+}
