@@ -15,6 +15,7 @@ urlpatterns列表将URL路由到视图。有关更多信息，请参见：https:
 from django.contrib import admin
 from django.http import HttpResponse
 from django.urls import path, include
+from . import views
 
 
 def home(res):
@@ -26,3 +27,5 @@ urlpatterns = [
     path("my_app/", include("my_app.urls")),
     path("admin/", admin.site.urls),
 ]
+
+handler404 = views.custom_not_found_view

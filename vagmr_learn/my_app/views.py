@@ -19,3 +19,7 @@ def index(req):
                   {'now': datetime.now(), "list": [1, 4, 5, 6]})
 
 # Create your views here.
+
+
+def second(req):
+    return render(req, 'my_app/second.html')

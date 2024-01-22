@@ -1,16 +1,31 @@
-<!DOCTYPE html>
-<html lang="Zh-cn">
-<head>
-<meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
-</head>
-<body>
-    <h1>你好,django</h1>
+{% extends "base.html" %}
+
+{% block head %}
+    <style>
+    .button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+</style>
+{% endblock head %}
+
+{% block content %}
+ <h1>你好,django</h1>
     {% load com_filter %}
     {% for i in list %}
     <h3>{{i}}</h3>
     {% endfor %}
+   <a href="./second" class="button">点击跳转</a>
     <footer>{{ now|date_format|center:"100"}}</footer>
-</body>
-</html>
+{% endblock content %}
