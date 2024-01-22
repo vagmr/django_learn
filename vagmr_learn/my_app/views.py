@@ -1,6 +1,11 @@
 from urllib.parse import unquote
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound
+from datetime import datetime
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.urls import reverse
+
+
+from util.url_pcs import reverse_url
 
 pages = {
     "index": "index",
@@ -10,13 +15,7 @@ pages = {
 
 
 def index(req):
-    return HttpResponse("Hello, world. You're at the polls index.")
-
-
-def mulpattern(req, path_p):
-    try:
-        return HttpResponse(pages[path_p])
-    except:
-        return HttpResponseNotFound("404")
+    return render(req, 'my_app/index.html',
+                  {'now': datetime.now(), "list": [1, 4, 5, 6]})
 
 # Create your views here.

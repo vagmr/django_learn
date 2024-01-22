@@ -215,7 +215,18 @@
     },
     "code-runner.customCommand": "python -u $fullFileName ",
     "explorer.compactFolders": false,
-    "python.createEnvironment.contentButton": "show",
-    "djangointellisense.projectRoot": "${workspaceRoot}/vagmr_learn",
-    "djangointellisense.settingsModule": "vagmr_learn.settings",
+    "workbench.colorCustomizations": {
+        "terminal.foreground": "#d41f7a",
+        "terminal.background": "#002B36",
+        "terminalCursor.foreground": "#ebe5e5",
+        "terminal.ansiBlack": "#000000",
+        "terminal.ansiBlue": "#0000FF",
+        "terminal.ansiCyan": "#00FFFF",
+        "terminal.ansiGreen": "#00FF00",
+        "terminal.ansiMagenta": "#FF00FF",
+        "terminal.ansiRed": "#FF0000",
+        "terminal.ansiWhite": "#FFFFFF",
+        "terminal.ansiYellow": "#FFFF00",
+        // 其他颜色设置...
+    }
 }
