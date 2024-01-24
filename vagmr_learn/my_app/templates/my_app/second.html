@@ -1,6 +1,23 @@
 {% extends "base.html" %}
+{% block head %}
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css">
+{% endblock head %}
+
 {% load static %}
 {% block content %}
     <h1>第二页面</h1>
     <img src="{% static 'my_app/images/tomato.png' %}" alt="tomato图片">
+    <form action="" method="post" >
+        {% csrf_token %}
+        <div class="container-lg w-50">
+              {%for fleid in form %}
+        <div class="mb-3">
+            {{fleid.label_tag}} 
+        </div>
+        {{fleid}}
+        {% endfor %}
+         <input type="submit" value="submit" class="btn btn-primary mt-2 mb-5 w-50">
+        </div>
+    </form>
+<script src="https://cdn.bootcdn.net/ajax/libs/bootstrap/5.3.1/js/bootstrap.min.js"></script>
 {% endblock content %}

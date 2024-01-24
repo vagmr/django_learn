@@ -212,6 +212,10 @@
         "python": "cd $dir && python manage.py runserver 3001",
         // 以文件夹主目录为启动目录,python扩展带的运行是以当前文件夹为启动目录
         "python_com": "python -u $fullFileName ",
+        "dj-migrate": "cd $dir && python manage.py migrate",
+        "dj-createsuperuser": "cd $dir && python manage.py createsuperuser",
+        "dj-makemigrations": "cd $dir && python manage.py makemigrations my_app",
+        "dj-sqlmigrate": "cd $dir && python manage.py sqlmigrate my_app 0001",
     },
     "code-runner.customCommand": "python -u $fullFileName ",
     "explorer.compactFolders": false,
