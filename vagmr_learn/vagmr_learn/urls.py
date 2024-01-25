@@ -18,12 +18,7 @@ from django.urls import path, include
 from . import views
 
 
-def home(res):
-    return HttpResponse("Home page.")
-
-
 urlpatterns = [
-    path("", home, name="home"),
     path("my_app/", include("my_app.urls")),
     path("admin/", admin.site.urls),
     path("api/", include("api.urls")),
