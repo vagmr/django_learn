@@ -32,7 +32,7 @@ function moveFiles(srcDir, destDir) {
     });
 }
 moveFiles(srcStaticDir, staticDir);
-// Move all files from distDir to templatesDir
-moveFiles(distDir, templatesDir);
 
-// Move all files from srcStaticDir to staticDir
+
+// moveFiles(distDir, templatesDir);
+

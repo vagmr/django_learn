@@ -13,17 +13,16 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'), // Entry HTML file
       },
       output: {
-        entryFileNames: `static/js/[name]-[hash].js`,
-        chunkFileNames: `static/js/[name]-[hash].js`,
+        entryFileNames: `static/js/[hash].js`,
+        chunkFileNames: `static/js/[hash].js`,
         assetFileNames: ({ name }) => {
           if (/\.(gif|jpe?g|png|svg)$/.test(name ?? '')) {
-            return 'static/images/[name]-[hash][extname]';
+            return 'static/images/[hash][extname]';
           }
           if (/\.(css)$/.test(name ?? '')) {
-            return 'static/css/[name]-[hash][extname]';
+            return 'static/css/[hash][extname]';
           }
-          // Other static assets
-          return 'static/[name]-[hash][extname]';
+          return 'static/[hash][extname]';
         }
       }
     }
