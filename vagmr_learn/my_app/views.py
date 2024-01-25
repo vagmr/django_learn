@@ -28,13 +28,16 @@ def index(req):
 
 def second(req):
     if req.method == 'POST':
-        form = forms.BooksForm(req.POST)
+        form = forms.BooksModelForm(req.POST)
         if form.is_valid():
-            print(form.cleaned_data)
-            # form.save() 保存数据
+            # print(form.cleaned_data)
+            form.save()
+            "保存数据"
             return HttpResponseRedirect(reverse("my_app:index"))
+        else:
+            return render(req, 'my_app/second.html', context={'form': form})
     else:
-        form = forms.BooksForm()
+        form = forms.BooksModelForm()
         return render(req, 'my_app/second.html', context={'form': form})
 
 

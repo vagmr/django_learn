@@ -214,7 +214,7 @@
         "python_com": "python -u $fullFileName ",
         "dj-migrate": "cd $dir && python manage.py migrate",
         "dj-createsuperuser": "cd $dir && python manage.py createsuperuser",
-        "dj-makemigrations": "cd $dir && python manage.py makemigrations my_app",
+        "dj-makemigrations": "cd $dir && python manage.py makemigrations",
         "dj-sqlmigrate": "cd $dir && python manage.py sqlmigrate my_app 0001",
     },
     "code-runner.customCommand": "python -u $fullFileName ",
