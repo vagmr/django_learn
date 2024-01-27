@@ -169,7 +169,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ]
@@ -183,11 +183,13 @@ SIMPLE_JWT = {
 
     # 自定义负载处理程序
     'PAYLOAD_HANDLER': 'api.views.jwt_response_payload_handler',
-
+    # 默认头部
     'AUTH_HEADER_TYPES': ('vagmr',),
+    # 默认的认证头名称
     'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
 
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    # 默认的token名称
     'TOKEN_TYPE_CLAIM': 'token_type',
 
     'JTI_CLAIM': 'jti',
