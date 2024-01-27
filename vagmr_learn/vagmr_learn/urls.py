@@ -22,6 +22,7 @@ urlpatterns = [
     path("my_app/", include("my_app.urls")),
     path("admin/", admin.site.urls),
     path("api/", include("api.urls")),
+    path('api_auth/', include('rest_framework.urls')),
 ]
 
 handler404 = views.custom_not_found_view

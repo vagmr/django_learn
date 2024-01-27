@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from os import path
+from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -142,3 +143,55 @@ STATICFILES_DIRS = [path.join(BASE_DIR, "static/")]
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# drf的全局配置
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 20,
+    "DATE_FORMAT": "%Y-%m-%d %H:%M:%S",
+    # 渲染
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
+    # 解析器
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',
+        'rest_framework.parsers.FileUploadParser',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        # 匿名用户访问get和head，认证用户访问其他
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        # 所有接口都需要认证
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ]
+
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
+    'ALGORITHM': 'HS256',  # 使用你喜欢的算法
+    'SIGNING_KEY': 'vagmr_key',  # 用你实际的密钥替换
+
+    # 自定义负载处理程序
+    'PAYLOAD_HANDLER': 'api.views.jwt_response_payload_handler',
+
+    'AUTH_HEADER_TYPES': ('vagmr',),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+
+    'JTI_CLAIM': 'jti',
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=3),
+    'SLIDING_TOKEN_LIFETIME': timedelta(hours=1),
+}

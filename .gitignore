@@ -2,3 +2,4 @@
 /_pycache/
 *.pyc
 *.pyo
+.env

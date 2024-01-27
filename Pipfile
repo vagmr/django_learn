@@ -9,6 +9,8 @@ jinja2 = "*"
 djangorestframework = "*"
 reportlab = "*"
 ipython = "*"
+djangorestframework-jwt = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 

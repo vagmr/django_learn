@@ -9,3 +9,9 @@ from .models import Room
 class RoomView(ListAPIView):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
+
+
+def jwt_response_payload_handler(token, user=None, request=None):
+    return {
+        'token': token
+    }
