@@ -39,6 +39,7 @@ class UserRegistrationView(APIView):
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
+    # 登录
     serializer_class = CustomTokenObtainPairSerializer
 
     def post(self, request, *args, **kwargs):
@@ -47,17 +48,19 @@ class CustomTokenObtainPairView(TokenObtainPairView):
         try:
             serializer.is_valid(raise_exception=True)
         except TokenError as e:
+            print(e)
             raise InvalidToken(e.args[0])
 
         return Response(serializer.validated_data)
 
 
 def jwt_response_payload_handler(token, user=None, request=None):
+    print("jwt_response_payload_handler执行")
     if user is None:
         user = {"id": 0, "username": "default"}
     return {
         'token': token,
-        # 添加您需要的任何其他用户信息
+        # 添加需要的任何用户信息
         'user_id': user.id,
         'username': user.username,
     }

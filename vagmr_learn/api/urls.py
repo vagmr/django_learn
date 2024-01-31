@@ -6,7 +6,7 @@ app_name = 'api'
 urlpatterns = [
     path("", RoomView.as_view(), name="room"),
     path("course/", course_list, name="course"),
-    path("detail/<int:pk>/", course_detail, name="detail"),
+    path("course/<int:pk>/", course_detail, name="detail"),
     path("login/", CustomTokenObtainPairView.as_view(), name="jwt"),
     path('register/', UserRegistrationView.as_view(), name="register"),
 ]

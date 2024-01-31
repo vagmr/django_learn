@@ -164,17 +164,20 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.MultiPartParser',
         'rest_framework.parsers.FileUploadParser',
     ],
+    # 权限控制
     'DEFAULT_PERMISSION_CLASSES': [
         # 匿名用户访问get和head，认证用户访问其他
         # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
         # 所有接口都需要认证
         'rest_framework.permissions.IsAuthenticated',
     ],
+    # 认证
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
-    ]
+    ]    # 异常处理
+    , 'EXCEPTION_HANDLER': 'api.exception_handler.custom_exception_handler',
 
 }
 

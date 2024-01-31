@@ -10,6 +10,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Course, Room
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework import exceptions
 
 
 class RoomSerializer(serializers.ModelSerializer):
@@ -38,14 +39,27 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         return token
 
     def validate(self, attrs):
-        data = super().validate(attrs)
+        try:
+            data = super().validate(attrs)
+        except exceptions.AuthenticationFailed as e:
+           # 检查用户名是否存在
+            user_exists = User.objects.filter(
+                username=attrs.get('username')).exists()
+            if user_exists:
+                raise serializers.ValidationError(
+                    {'detail': '用户名或密码错误', 'code': 'authorization_failed'})
+            else:
+                raise serializers.ValidationError({'detail': f'用户名不存在({e})'})
+
         token = data.pop('access', None)  # Remove the 'access' key
-        if not token:
+        refresh = data.pop('refresh', None)
+        if not token or not refresh:
             raise serializers.ValidationError('无效的令牌。')
-        data['access_token'] = token
+        data['access_token'] = 'vagmr ' + token
+        data['refresh_token'] = 'vagmr ' + refresh
         data['msg'] = '登录成功'
+        data['username'] = self.user.username  # type: ignore
         # data['custom_data'] = 'value'
-        data['msg'] = '登录成功'
         return data
 
 
