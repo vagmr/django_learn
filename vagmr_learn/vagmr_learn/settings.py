@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from os import path
 from datetime import timedelta
+from util.getEnv import dict_init, get_env
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,6 +26,7 @@ SECRET_KEY = "django-insecure-do@_&jj0$l0m^utz32*4w9iw)$hv7)v=0$j_1*0r_k&m+z5j9k
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+dict_init()
 
 ALLOWED_HOSTS = []
 
@@ -178,18 +180,18 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
-    'ALGORITHM': 'HS256',  # 使用你喜欢的算法
-    'SIGNING_KEY': 'vagmr_key',  # 用你实际的密钥替换
+    'ALGORITHM': 'HS256',  # 算法
+    'SIGNING_KEY': get_env("SIGNING_KEY"),  # 密钥
 
     # 自定义负载处理程序
     'PAYLOAD_HANDLER': 'api.views.jwt_response_payload_handler',
-    # 默认头部
+    # 头部
     'AUTH_HEADER_TYPES': ('vagmr',),
     # 默认的认证头名称
     'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
 
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
-    # 默认的token名称
+    # token类型声明
     'TOKEN_TYPE_CLAIM': 'token_type',
 
     'JTI_CLAIM': 'jti',

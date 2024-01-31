@@ -53,7 +53,7 @@ def init_env():
         dict_init()
 
 
-def get_env(key):
+def get_env(key: str):
     """
     根据提供的键(key)，从环境变量字典(env_dict)中获取值。
     如果键不存在，则抛出异常。
