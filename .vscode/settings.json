@@ -63,6 +63,7 @@
         "simplejwt",
         "TLAHVBXBTMHZDOQQ",
         "vagmr",
+        "viewsets",
         "werkzeug"
     ],
     "terminal.integrated.env.osx": {

@@ -37,7 +37,8 @@ class Course(models.Model):
         max_digits=6, decimal_places=2, help_text="课程价格", verbose_name="价格")
     teacher = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
                                 help_text="课程讲师", verbose_name="讲师")
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
+    created_at = models.DateTimeField(
+        auto_now_add=True, verbose_name="创建时间", null=True)
     updated_at = models.DateTimeField(auto_now=True, verbose_name="更新时间")
 
     class Meta:

@@ -11,6 +11,8 @@ reportlab = "*"
 ipython = "*"
 djangorestframework-jwt = "*"
 djangorestframework-simplejwt = "*"
+coreapi = "*"
+pyyaml = "*"
 
 [dev-packages]
 

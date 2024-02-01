@@ -15,6 +15,7 @@ urlpatterns列表将URL路由到视图。有关更多信息，请参见：https:
 from django.contrib import admin
 from django.urls import path, include
 from . import views
+from rest_framework.documentation import include_docs_urls
 
 
 urlpatterns = [
@@ -23,6 +24,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("api.urls")),
     path('api-auth/', include('rest_framework.urls')),
+    path('docs/', include_docs_urls(title="vagmr_learn API 文档")),
 ]
 
 handler404 = views.custom_not_found_view

@@ -9,7 +9,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Course, Room
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer, TokenRefreshSerializer
 from rest_framework import exceptions
 
 
@@ -22,8 +22,10 @@ class RoomSerializer(serializers.ModelSerializer):
 
 class CourseSerializer(serializers.ModelSerializer):
     teacher = serializers.ReadOnlyField(source="teacher.username")
-    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
-    updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+    created_at = serializers.DateTimeField(
+        format="%Y-%m-%d %H:%M:%S", read_only=True)
+    updated_at = serializers.DateTimeField(
+        format="%Y-%m-%d %H:%M:%S", read_only=True)
 
     class Meta:
         model = Course
@@ -90,14 +92,8 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'password': {'write_only': True, 'min_length': 6,
                          'error_messages': {'required': '密码不能为空。', 'min_length': '密码不能少于6位。'}},
-            'username': {'required': True, 'min_length': 5,
-                         'error_messages': {'required': '用户名不能为空。', 'min_length': '用户名不能少于5位。', 'unique': '该用户名已经被注册。'},
-                         },
-            'email': {
-                'error_messages': {
-                    'required': '邮箱不能为空。',
-                }
-            }
+            'username': {'min_length': 5,  'error_messages': {'required': '用户名不能为空。', 'min_length': '用户名不能少于5位。',
+                                                              'unique': '用户名已经被注册。'}}
         }
 
     def validate(self, attrs):
@@ -118,3 +114,29 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         account.set_password(password)
         account.save()
         return account
+
+
+class UserInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'email')
+
+
+class CustomTokenRefreshSerializer(TokenRefreshSerializer):
+    """刷新令牌的序列化器"""
+
+    def validate(self, attrs):
+        refresh = attrs['refresh']
+        if refresh.startswith('vagmr '):
+            attrs['refresh'] = refresh[len('vagmr '):]  # 去除前缀
+
+        # 调用父类的validate方法进行验证
+        data = super().validate(attrs)
+
+        # 重新添加前缀到新的访问令牌
+        access_token = data.pop('access', None)
+        if access_token:
+            data['access_token'] = 'vagmr ' + access_token
+        data['msg'] = 'Token刷新成功'
+
+        return data

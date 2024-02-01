@@ -173,9 +173,9 @@ REST_FRAMEWORK = {
     ],
     # 认证
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ]    # 异常处理
     , 'EXCEPTION_HANDLER': 'api.exception_handler.custom_exception_handler',
 

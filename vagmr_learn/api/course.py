@@ -1,16 +1,24 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
+from rest_framework import viewsets
 from util.tokenPs import get_jwt_from_authorization_header, get_token_data
-from rest_framework.exceptions import NotFound
+from rest_framework import generics
 
+from .permission import IsOnlyOwner
 from .exceptions import CourseNotFound
 from .models import Course
 from .jsonify import CourseSerializer
 from rest_framework import status
 
+"1.函数视图"
 
+
+# from rest_framework.decorators import authentication_classes
+# from rest_framework.authentication import SessionAuthentication,BasicAuthentication
+# from rest_framework_simplejwt.authentication import JWTAuthentication,JWTStatelessUserAuthentication
 @api_view(['GET', 'POST'])
+# 函数使用装饰器 @authentication_classes((JWTAuthentication,))
 def course_list(request):
     if request.method == 'GET':
         token = get_jwt_from_authorization_header(
@@ -50,11 +58,24 @@ def course_detail(request, pk):
         course.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-# cbv
+
+"cbv 类视图"
 
 
 class CourseList(APIView):
+    # 类的自定义认证 authentication_classes = []
     def get(self, req):
+        """get请求
+
+        Args:
+            req (_type_): 请求
+
+        Raises:
+            CourseNotFound: 课程不存在
+
+        Returns:
+            Response: 响应
+        """
         # 获取查询参数
         params = req.query_params
         queryset = None
@@ -65,7 +86,6 @@ class CourseList(APIView):
         s = CourseSerializer(instance=queryset)
         if not queryset:
             raise CourseNotFound()
-        print(s.data)
         return Response(s.data, status=status.HTTP_200_OK)
 
     def post(self, req):
@@ -76,3 +96,33 @@ class CourseList(APIView):
 
     def delete(self, req):
         pass
+
+
+"3.通用类视图 gcbv"
+
+
+class GCourseList(generics.ListCreateAPIView):
+    """get 和 post 请求"""
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(teacher=self.request.user)
+
+
+class GCourseDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsOnlyOwner]
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+    lookup_field = 'id'
+
+
+"4.视图集"
+
+
+class CourseViewSet(viewsets.ModelViewSet):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(teacher=self.request.user)

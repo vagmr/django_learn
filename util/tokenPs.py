@@ -26,7 +26,7 @@ def get_token_data(token):
         return valid_data
     except (InvalidToken, TokenError):
         print("Token is invalid or expired")
-        return None
+        raise InvalidToken("Token is invalid or expired")
 
 
 def get_jwt_from_authorization_header(header_value):

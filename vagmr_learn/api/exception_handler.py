@@ -16,7 +16,7 @@ from . import exceptions
 
 def get_custom_exceptions(module):
     """
-    从给定模块中检索自定义异常。
+    通过反射从给定模块中检索自定义异常。
 
     参数:
         module: 要从中检索自定义异常的模块。
@@ -49,15 +49,15 @@ def custom_exception_handler(exc, context):
     # 如果异常是InvalidToken或TokenError，则返回一个自定义的响应
     if isinstance(exc, (InvalidToken, TokenError)):
         custom_response_data = {
-            "detail": "您的登录信息已失效，请重新登录。",
-            "code": "authorization_failed",
+            "detail": f"您的登录信息已失效，请重新登录。({exc.default_detail})",
+            "code": f"authorization_failed({exc.status_code})",
             'author': 'vagmr',
             "messages": [
+                exc.detail,
                 {
-                    "token_class": "AccessToken",
-                    "token_type": "access",
-                    "message": "Token is invalid or expired(token过期或无效)",
-                    "info": "有效期：1小时"
+                    'info': "token有效期1小时",
+                    'type': "Access",
+                    'url': "api/token/refresh/"
                 }
             ]
         }
