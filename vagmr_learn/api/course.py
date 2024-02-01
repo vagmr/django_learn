@@ -1,7 +1,10 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-
+from rest_framework.views import APIView
 from util.tokenPs import get_jwt_from_authorization_header, get_token_data
+from rest_framework.exceptions import NotFound
+
+from .exceptions import CourseNotFound
 from .models import Course
 from .jsonify import CourseSerializer
 from rest_framework import status
@@ -46,3 +49,30 @@ def course_detail(request, pk):
     elif request.method == 'DELETE':
         course.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+# cbv
+
+
+class CourseList(APIView):
+    def get(self, req):
+        # 获取查询参数
+        params = req.query_params
+        queryset = None
+        if params.get('id', None):
+            queryset = Course.objects.filter(pk=params.get('id')).first()
+        else:
+            queryset = Course.objects.first()
+        s = CourseSerializer(instance=queryset)
+        if not queryset:
+            raise CourseNotFound()
+        print(s.data)
+        return Response(s.data, status=status.HTTP_200_OK)
+
+    def post(self, req):
+        pass
+
+    def put(self, req):
+        pass
+
+    def delete(self, req):
+        pass

@@ -22,6 +22,8 @@ class RoomSerializer(serializers.ModelSerializer):
 
 class CourseSerializer(serializers.ModelSerializer):
     teacher = serializers.ReadOnlyField(source="teacher.username")
+    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+    updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
 
     class Meta:
         model = Course

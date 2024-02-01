@@ -5,10 +5,33 @@
 @作者        :vagmr
 @版本        :1.1
 """
+import inspect
 from rest_framework.views import exception_handler
 from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
+from rest_framework.exceptions import APIException
 from rest_framework.response import Response
 from rest_framework import status
+from . import exceptions
+
+
+def get_custom_exceptions(module):
+    """
+    从给定模块中检索自定义异常。
+
+    参数:
+        module: 要从中检索自定义异常的模块。
+
+    返回:
+        在模块中找到的自定义异常列表。
+    """
+    custom_exceptions = []
+    for name, obj in inspect.getmembers(module):
+        if inspect.isclass(obj) and issubclass(obj, APIException) and obj is not APIException:
+            custom_exceptions.append(obj)
+    return custom_exceptions
+
+
+custom_exceptions_list = get_custom_exceptions(exceptions)
 
 
 def custom_exception_handler(exc, context):
@@ -40,5 +63,16 @@ def custom_exception_handler(exc, context):
         }
         response = Response(custom_response_data,
                             status=status.HTTP_401_UNAUTHORIZED)
+    # 检查异常是否在自定义异常列表中
+    if any(isinstance(exc, cls) for cls in custom_exceptions_list):
+        print(custom_exceptions_list)
+        custom_response_data = {
+            "code": exc.status_code,
+            "msg": str(exc.detail),
+            'author': 'vagmr',
+            'mark': str(exc.default_code),
+            'data': exc.data
+        }
+        response = Response(custom_response_data, status=exc.status_code)
 
     return response
