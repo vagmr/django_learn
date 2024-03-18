@@ -2,4 +2,4 @@
 
 ## 介绍
 
-Django 学习项目
+Django
